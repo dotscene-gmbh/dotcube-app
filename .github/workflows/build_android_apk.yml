@@ -6,14 +6,10 @@ on:
     branches: [devel]
     tags:
       - 'v**'
-    paths:
-      - 'app/*'
   pull_request:
     branches:
       - devel
       - main
-    paths:
-      - 'app/*'
 
 jobs:
   build:
@@ -47,10 +43,10 @@ jobs:
       with:
         ruby-version: 3.0.2
         bundler-cache: true
-        working-directory: app/DroneController
+        working-directory: DroneController
 
     - name: Setup gradle
-      working-directory: app/DroneController
+      working-directory: DroneController
       run: bundle exec fastlane android clean
 
     - name: Define version code and name
@@ -65,13 +61,13 @@ jobs:
         echo "version_name=$VERSION_NAME" >> $GITHUB_ENV
 
     - name: Update version code and name
-      working-directory: app/DroneController
+      working-directory: DroneController
       run: |
         sed --regexp-extended -i 's/versionCode [0-9]+/versionCode ${{ env.version_code }}/g' app/build.gradle
         sed --regexp-extended -i 's/versionName ".*"/versionName "${{ env.version_name }}"/g' app/build.gradle
 
     - name: Build, assemble and sign APK
-      working-directory: app/DroneController
+      working-directory: DroneController
       env:
         DOTCUBE_APP_KEY_PWD: ${{ secrets.DOTCUBE_APP_KEY_PWD }}
       run: |
@@ -79,14 +75,14 @@ jobs:
         find . -name '*.apk' | rename 's/.apk$/_${{ env.version_code }}.apk/'
 
     - name: Print APK artifact paths
-      working-directory: app/DroneController
+      working-directory: DroneController
       run: find app/build/outputs/apk -name '*.apk'
 
     - name: Upload APKs as build artifact
       uses: actions/upload-artifact@v3
       with:
         name: APKs
-        path: app/DroneController/app/build/outputs/apk/**/*.apk
+        path: DroneController/app/build/outputs/apk/**/*.apk
         if-no-files-found: error
 
   deploy:
