@@ -20,6 +20,13 @@ jobs:
       with:
         lfs: true
 
+    - name: Checkout dotcube-licenses repo
+      uses: actions/checkout@v3
+      with:
+        repository: dotscene-gmbh/dotcube-licenses
+        path: dotcube-licenses
+        ssh-key: ${{ secrets.DOTCUBE_LICENSES_PRIVATE_KEY }}
+
     - name: Checkout dot-bash-commons repo
       uses: actions/checkout@v3
       with:

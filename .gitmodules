@@ -1,0 +1,3 @@
+[submodule "dotcube-licenses"]
+	path = dotcube-licenses
+	url = git@github.com:dotscene-gmbh/dotcube-licenses.git
