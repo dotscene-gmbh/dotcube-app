@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="horizontal">
+
+  <CheckBox
+    android:id="@+id/fileManagerItemCheckbox"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:layout_margin="7pt"
+    android:layout_weight="0" />
+
+  <ImageView
+    android:id="@+id/fileManagerItemImage"
+    android:layout_width="25sp"
+    android:layout_height="25sp"
+    android:layout_gravity="center_vertical"
+    android:layout_marginRight="7pt"
+    android:layout_weight="0"
+    android:src="@drawable/ic_folder_icon" />
+
+
+  <GridLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:layout_weight="1"
+    android:orientation="horizontal">
+
+    <TextView
+      android:id="@+id/fileManagerItemName"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_row="0"
+      android:layout_column="0"
+      android:layout_columnSpan="2"
+      android:text="file123" />
+
+    <TextView
+      android:id="@+id/fileManagerItemDate"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_row="1"
+      android:layout_column="0"
+      android:layout_columnWeight="1"
+      android:text="28.03.2019 15:47" />
+
+
+    <TextView
+      android:id="@+id/fileManagerItemSize"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_row="1"
+      android:layout_column="1"
+      android:layout_columnWeight="0"
+      android:layout_gravity="end"
+      android:text="5MiB"
+      android:textColor="@color/colorPositive" />
+
+  </GridLayout>
+</LinearLayout>

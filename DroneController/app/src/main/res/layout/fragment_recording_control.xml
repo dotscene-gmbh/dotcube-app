@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_horizontal_margin">
+
+  <com.dotscene.dronecontroller.DotsceneToggle
+      android:id="@+id/toggleRecording"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginBottom="6pt"
+      android:enabled="false"
+      android:paddingLeft="@dimen/button_side_margin"
+      android:paddingRight="@dimen/button_side_margin"
+      android:saveEnabled="false"
+      android:textColor="@color/colorPrimaryLight"
+      android:textOff="@string/startRecording"
+      android:textOn="@string/stopRecording" />
+
+  <TextView
+      android:id="@+id/recordingFor"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:textColor="@color/colorPositive"
+      android:textSize="25sp"
+      android:textStyle="bold"
+      android:visibility="gone" />
+
+
+  <TextView
+      android:id="@+id/recordingTo"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginBottom="2pt"
+      android:text=""
+      android:visibility="gone" />
+</LinearLayout>

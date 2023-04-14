@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context="com.dotscene.dronecontroller.RecordingDetailsFragment">
+
+  <ProgressBar
+      android:id="@+id/storageBar"
+      style="@android:style/Widget.ProgressBar.Horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="2pt"
+      android:progressTint="@color/colorPositive" />
+
+  <GridLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:columnCount="2">
+
+    <TextView
+        android:layout_marginRight="7pt"
+        android:text="@string/timeRemaining" />
+
+    <TextView
+        android:id="@+id/timeRemaining"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2pt"
+        android:text="" />
+
+    <TextView
+        android:layout_marginRight="7pt"
+        android:text="@string/lastRecording" />
+
+    <TextView
+        android:id="@+id/lastFile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="" />
+  </GridLayout>
+</LinearLayout>

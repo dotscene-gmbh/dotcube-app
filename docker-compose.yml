@@ -1,0 +1,13 @@
+services:
+  dotscene-fastlane:
+    image: dotscene-fastlane
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        - USER_UID=${USER_UID:-2000}
+        - USER_GID=${USER_GID:-2000}
+        - ANDROID_SDK_ROOT=/android_sdk
+    volumes:
+      - ..:/dotcube
+      - $ANDROID_HOME:/android_sdk

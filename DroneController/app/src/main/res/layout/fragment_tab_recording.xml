@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="2"
+    android:keepScreenOn="true"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="20dp"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.dotscene.dronecontroller.MainActivity">
+
+  <requestFocus />
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+      <FrameLayout
+        android:id="@+id/missionFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+      <FrameLayout
+        android:id="@+id/systemStateFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+      <FrameLayout
+          android:id="@+id/recordingControlFragment"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:layout_marginTop="15pt"/>
+
+
+
+      <TextView
+          style="@style/FragmentHeading"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/heading_margin_bottom"
+          android:text="@string/recordingDetails" />
+
+      <FrameLayout
+          android:id="@+id/recordingDetailsFragment"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="20dp" />
+
+      <FrameLayout
+          android:id="@+id/systemControlFragment"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+  </ScrollView>
+</LinearLayout>

@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">dotcube</string>
+    <string name="connect">Connect</string>
+    <string name="connecting">Connecting&#8230;</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="shutdown">Shutdown</string>
+    <string name="shutdownFsSync">Storing data before shutdown&#8230;</string>
+    <string name="shutdownInProgress">Shutting down the sensor&#8230;</string>
+    <string name="system_state">System Check</string>
+    <string name="ok">OK</string>
+    <string name="tryAgain">Try Again</string>
+    <string name="ignore">Ignore</string>
+    <string name="cancel">Cancel</string>
+    <string name="startRecording">scan</string>
+    <string name="stopRecording">stop scanning</string>
+    <string name="rebootNow">Reboot Now</string>
+
+    <string name="invalidRecordingName">The name may only include alphanumeric characters, hyphens and underscores.</string>
+    <string name="invalidFilename">%s is not a valid filename</string>
+    <string name="deviceFull">No space left on device. No further data can be recorded.</string>
+
+    <string name="utf8EncodingError">This device does not support utf-8.</string>
+
+    <string name="serverModelTcpUnknownHost">Unable to resolve the dotcube\'s address.</string>
+    <string name="serverModelTcpHostUnreachable">Unable to reach the dotcube.</string>
+    <string name="serverModelTcpServerNotRunning">Reached the dotcube but no server is running.</string>
+    <string name="serverModelTcpGenericError">Unable to connect to the server.</string>
+
+    <string name="recordingDetails">Recording Details</string>
+    <string name="recordingTo">recording to:</string>
+    <string name="lastRecording">last recording:</string>
+    <string name="timeRemaining">time remaining:</string>
+
+    <string name="storageDetailsInternal">Storage Details dotcube</string>
+    <string name="capacity">capacity:</string>
+    <string name="free">free:</string>
+    <string name="used">used:</string>
+    <string name="fileArchive">File Archive Dotcube</string>
+    <string name="delete">delete</string>
+
+    <string name="confirm_shutdown">Do you really want to shutdown?</string>
+    <string name="confirm_shutdown_during_recording">The system is currently recording. If you press \"OK\" the recording will be stopped and the system will shutdown afterwards. If you press \"force shutdown\" the recording will be aborted, rendering the current recording unusable, and the system will shutdown immediately.</string>
+    <string name="force_shutdown">force shutdown</string>
+    <string name="shutdownBrokenBagfiles">Some of the scans recorded since the last restart are damaged and have to be scanned again. The following scans are affected:</string>
+    <string name="confirm_delete">Do you really want to delete the selected scans?</string>
+
+    <string name="bagname_dialog">Recording Name:</string>
+    <string name="checkWifiWrongWifi">It appears that you are not connected to the correct Wi-Fi. Please connect to a Wi-Fi named \"%s&#8230;\"</string>
+    <string name="settings">Settings</string>
+    <string name="notConnected">You are currently not connected to the sensor.</string>
+
+    <string name="recordingControlNoGps">GPS not enabled, recording location may be inaccurate or missing.</string>
+    <string name="recordingLogs">Recording Logs</string>
+    <string name="logEditGps">GPS used</string>
+    <string name="logEditLocation">Location</string>
+    <string name="logEditType">Type</string>
+    <string name="logEditDescription">Description</string>
+    <string name="logEditComment">Comment</string>
+    <string name="logEditNoLocation">Tablet Location: not available</string>
+    <string name="logEditHasLocation">Tablet Location: available</string>
+
+    <string name="startRecordingPrepareImuTest">Initializing the sensor. Place the sensor upright on an even surface and do not move during initialization.</string>
+    <string name="startRecordingImuTestrunning">Initializing the system&#8230;</string>
+    <string name="startRecordingDontMove">Do not move the sensor during initialization.</string>
+    <string name="startRecordingImuTest">Testing sensors&#8230;</string>
+    <string name="startRecordingWait">Starting the recording&#8230;</string>
+    <string name="imuTestFailed">Sensor initialization failed. Do not move the sensor during initialization and make sure it is placed upright on a level surface. If the problem persists after multiple attempts, restart the sensor.</string>
+    <string name="imuTestFailed2">Sensor malfunction detected. Ignoring the error can result in unusable scan results.</string>
+
+    <string name="stopRecordingWait">Stopping the recording&#8230;</string>
+    <string name="startRecordingError">An error occurred while trying to start the recording.</string>
+    <string name="noFilesSelected">No files selected.</string>
+    <string name="onSSHConnectionLost">Lost connection to the server. Recent actions may have failed to execute on the server.</string>
+
+    <string name="dialogRosErrors">System Log</string>
+    <string name="save">save</string>
+
+    <string name="resetServerConfirm">Resetting the server will erase all permanent files created by this app apart from scanfiles.</string>
+    <string name="resettingServer">Resetting the server&#8230;</string>
+
+    <string name="networkingHeading">Networking</string>
+    <string name="networkingInterface">Interface</string>
+    <string name="networkingIp">IP</string>
+    <string name="networkingAddIp">Add IP</string>
+    <string name="networkingSetDefaultRoute">Set Default Route</string>
+    <string name="networkingStartDhcpClient">Start the DHCP client</string>
+    <string name="networkingStopDhcpClient">Stop the DHCP client</string>
+    <string name="networkingStartDhcpServer">Start the DHCP server</string>
+    <string name="networkingStopDhcpServer">Stop the DHCP server</string>
+    <string name="networkingRefresh">Refresh</string>
+    <string name="networkingSuccess">Successfully added the IP</string>
+    <string name="networkingError">Unable to add the IP</string>
+    <string name="errorInternal">Internal Error</string>
+
+    <string name="stopRecordingTimeout">The server did not react to the stop request.</string>
+    <string name="startRecordingTimeout">The server did not react to the start request.</string>
+    <string name="deleteFilesFailed">Something went wrong while deleting the scan&#8230;</string>
+    <string name="recordingFailed">The recording failed or the resulting file is corrupt. Please try again.</string>
+
+    <string name="projectNameLabel">Mission:</string>
+    <string name="setMissionButton">Set</string>
+    <string name="setMissionDialog">Set Mission</string>
+    <string name="setMissionManual">Manual</string>
+    <string name="setMissionQrCode">QR-Code</string>
+    <string name="setMissionNameHint">mission name</string>
+    <string name="setMissionQrCodeSuccess">Mission Recognized</string>
+    <string name="setMissionQrCodeInvalid">Could not recognize the QR-Code</string>
+    <string name="setMissionNameInvalid">The name may only include alphanumeric characters, hyphens and underscores.</string>
+
+    <string name="defaultRecordingType">Default Recording Type:</string>
+    <string name="setDefaultRecordingType">Set</string>
+    <string name="setDefaultRecordingTypeDialog">Set Default Recording Type</string>
+
+    <string name="qrCodeScannerUnavailable">The QR code scanner is being initialized&#8230;</string>
+    <string name="qrCodeNoCameraPermissions">Camera permissions are required for QR code scanning.</string>
+    <string name="qrCodeNoCamera">Camera permissions are required for QR code scanning.</string>
+    <string name="qrConfigFailed">Unable to configure the camera.</string>
+
+    <string name="wrongProtocolVersion">The app version (%d) does not match the server version (%d).</string>
+
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="velodynesNotRunning">The scanners are not running. Recordings done while the scanners are not running will not contain any data. Do you still want to try to record?</string>
+
+    <string name="tabTitleRecord">record</string>
+    <string name="tabTitleStorage">storage</string>
+    <string name="tabTitleNetwork">network</string>
+    <string name="tabTitleAdminNetwork">admin net</string>
+    <string name="tabTitleCalibration">calibration</string>
+
+    <string name="editLogNoLog">No log file specified.</string>
+    <string name="editLogSaveSuccess">Saved Successfully</string>
+    <string name="logsOptions">Options</string>
+    <string name="logsSynchronizing">synchronizing&#8230;</string>
+    <string name="logsSynchronizingFailed">Synchronization Failed</string>
+
+    <string name="recDetailsSec">sec</string>
+    <string name="recDetailsMin">min</string>
+
+    <string name="checkWifiMissingPermissions">One or several of the permissions required by this app were not granted. Please ensure this app has been granted all the required permissions.</string>
+    <string name="querySyncError">Unable to contact the file sync client.</string>
+
+    <string name="storageSyncStatusUnknown">Unknown</string>
+    <string name="storageSyncStatusSynced">Synchronized</string>
+    <string name="storageSyncStatusUploading">Uploading&#8230;</string>
+    <string name="storageSyncStatusDisconnected">Disconnected</string>
+    <string name="storageSyncEta">ETA: %d min %d sec</string>
+    <string name="uploadSpeed">Speed: %.2f %s</string>
+    <string name="storageSyncNumFiles">Files to Upload: %d</string>
+
+    <string name="checkWifiAndroid9Loc">Your device is running android 9 or newer. Due to increased security requirements in this android version you need to enable the location service for the dotcube app to be able to run.</string>
+    <string name="checkWifiOpenLocSettings">Location Settings</string>
+    <string name="checkWifiExit">Exit</string>
+
+    <string name="networkingToggleDhcp">Toggle between a dhcp client and server.</string>
+    <string name="networkingDhcpServer">DHCP Server</string>
+    <string name="networkingDhcpClient">DHCP Client</string>
+    <string name="networkingNoSuitableInterface">No usb network interface found</string>
+    <string name="networkingServer">Server</string>
+    <string name="networkingClient">Client</string>
+    <string name="networkingDhcpStatusChangeFailed">DHCP status change failed.</string>
+    <string name="networkingDhcpStatusChangeFailedClient">Unable to request the dhcp change.</string>
+    <string name="networkingDhcpClientStarted">DHCP client started.</string>
+    <string name="networkingDhcpServerStarted">DHCP server started.</string>
+    <string name="networkingDhcpPollSystemdError">System error on the server when polling the DHCP server state.</string>
+    <string name="networkingDhcp">DHCP</string>
+    <string name="networkingProxy">Proxy</string>
+    <string name="networkingProxyUrl">SOCKS5 Url</string>
+    <string name="networkingProxyUrlHint">192.0.2.1:1080</string>
+    <string name="networkingSetProxyUrl">Set URL</string>
+    <string name="networkingGetProxyError">Unable to read the proxy settings.</string>
+    <string name="networkingSetProxyError">Unable to set the proxy settings.</string>
+    <string name="networkingSetProxySuccess">Updated the proxy URL. This will take effect after the next sensor reboot.</string>
+    <string name="networkingProxyCantLoadError">Unable to load the proxy URL.</string>
+    <string name="networkingPing">Ping</string>
+    <string name="networkingPingUrl">URL</string>
+    <string name="networkingPinging">Pinging the address, please wait&#8230;</string>
+    <string name="networkingPingResponseTimeout">No response from the sensor.</string>
+    <string name="networkingPingSuccess">Received a response from the server.</string>
+    <string name="networkingPingFailure">No response was received from the server.</string>
+
+    <string name="noServerStateModelError">An internal error occurred when trying to contact the sensor.</string>
+    <string name="systemStateEverythingOk">All checks passed.</string>
+
+    <string name="systemStateGpsFailure">Missing data from the GPS.</string>
+    <string name="systemStateImuFailure">Missing data from the inertial measurement unit.</string>
+    <string name="systemStateImuSyncFailure">Missing data from the inertial measurement unit synchronization.</string>
+    <string name="systemStateFrontVelodyneFailure">Missing data from the front laser.</string>
+    <string name="systemStateTopVelodyneFailure">Missing data from the top laser.</string>
+    <string name="systemStateFrontVelodyneCapFailure">Missing data from the front laser cap detection.</string>
+    <string name="systemStateTopVelodyneCapFailure">Missing data from the top laser cap detection.</string>
+    <string name="systemStateFrontVelodynePositionFailure">Missing data from the front laser position packet stream.</string>
+    <string name="systemStateTopVelodynePositionFailure">Missing data from the top laser position packet stream.</string>
+    <string name="systemStateFrontVelodyneInSyncFailure">Missing data from the front laser synchronization.</string>
+    <string name="systemStateTopVelodyneInSyncFailure">Missing data from the top laser synchronization.</string>
+    <string name="systemStateFrontVelodyneValidGpsFailure">Missing data from the front laser gprmc data stream.</string>
+    <string name="systemStateTopVelodyneValidGpsFailure">Missing data from the top laser gprmc data stream.</string>
+    <string name="systemStateFanStatusFailure">Missing data from the fan status detection.</string>
+    <string name="systemStateRosError">An error occurred on the sensor.</string>
+
+    <string name="systemStateGpioPpsGprmcFailure">Missing data from the synchronization.</string>
+    <string name="systemStateGpioPpsTimeOffsetFailure">Missing synchronization data for the inertial measurement unit.</string>
+    <string name="systemStateImuTempFailure">Missing data from the inertial measurement unit\'s temperature sensor.</string>
+    <string name="systemStateImuTempWrongValue">Critical inertial measurement unit temperature. Please shutdown the system immediately and wait for it to cool down.</string>
+    <string name="systemStateCpuTempFailure">Missing data from the cpu\'s temperature sensor.</string>
+    <string name="systemStateCpuTempWrongValue">Critical cpu temperature. Please shutdown the system immediately and wait for it to cool down.</string>
+
+    <string name="systemStateImuSyncNotSynced">No time synchronization for the inertial measurement unit.</string>
+    <string name="systemStateFrontVelodyneCapOn">Please remove the cap from the front laser.</string>
+    <string name="systemStateTopVelodyneCapOn">Please remove the cap from the top laser.</string>
+
+    <string name="systemStateFrontVelodyneInSyncWrongValue">No time synchronization for the front laser.</string>
+    <string name="systemStateTopVelodyneInSyncWrongValue">No time synchronization for the top laser.</string>
+    <string name="systemStateFrontVelodyneValidGpsWrongValue">Invalid gprmc message from the front laser.</string>
+    <string name="systemStateTopVelodyneValidGpsWrongValue">Invalid gprmc message from the top laser.</string>
+
+    <string name="systemStateFanWrongStatus">Fan is not working correctly, please check for blocking.</string>
+
+    <string name="systemStateGpsLock">GPS lock:</string>
+    <string name="recordingTypeIndoor">indoor</string>
+    <string name="recordingTypeOutdoor">outdoor/combined</string>
+    <string name="recordingTypeFlight">flight</string>
+
+    <string name="connectIsNetworkMock">The network mockup is in use.</string>
+    <string name="connectIsDebugMode">The debug mode is enabled.</string>
+
+    <string name="info">Info</string>
+    <string name="licenses">Licenses</string>
+    <string name="errorLoadingLicenses">Unable to load the licenses.</string>
+
+    <string name="factoryReset">Factory Reset</string>
+    <string name="factoryResetInfo">Pressing OK will reset the server to its factory default settings. This will not delete any scans or similar data on the sensor.</string>
+    <string name="successfullFactoryReset">Successfully reset the server to factory defaults.</string>
+    <string name="factoryResetError">Unable to reset the server to factory defaults.</string>
+
+    <string name="keepaliveTimeout">The sensor is not responding to requests, closing the connection&#8230;</string>
+    <string name="manual">Manual</string>
+    <string name="scanManual">Scan Instructions</string>
+    <string name="videoManual">Video Manual</string>
+    <string name="help_menu">Help</string>
+    <string name="video_path" translatable="false">sdcard/Movies/.manual/video.mp4</string>
+
+    <string name="infoName"> Name </string>
+    <string name="infoVersion"> Version </string>
+    <string name="infoHardwareVersion"> Hardware Version </string>
+    <string name="infoNetworkProtocolVersion"> Network Protocol Version </string>
+    <string name="infoNetworkIP"> Network IP </string>
+    <string name="infoNetworkMAC"> Network MAC </string>
+</resources>

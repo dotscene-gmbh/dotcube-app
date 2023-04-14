@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:weightSum="1">
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+      <TextView
+          style="@style/FragmentHeading"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/heading_margin_top"
+          android:layout_marginBottom="@dimen/heading_margin_bottom"
+          android:text="@string/networkingDhcp" />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/networkingToggleDhcp" />
+
+      <LinearLayout
+          android:id="@+id/networkToggleDhcpGroup"
+          android:visibility="gone"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+        <TextView
+            android:text="@string/networkingDhcpClient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Switch
+            android:id="@+id/networkToggleDhcp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:text="@string/networkingDhcpServer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+      </LinearLayout>
+      <TextView
+          android:id="@+id/networkingNoSuitableInterface"
+          android:text="@string/networkingNoSuitableInterface"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+
+      <TextView
+          style="@style/FragmentHeading"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/heading_margin_top"
+          android:layout_marginBottom="@dimen/heading_margin_bottom"
+          android:text="@string/networkingProxy" />
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+        <TextView
+            android:text="@string/networkingProxyUrl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/networkProxyUrl"
+            android:hint="@string/networkingProxyUrlHint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textUri"
+            android:maxLines="1"/>
+      </LinearLayout>
+      <TextView
+          android:id="@+id/networkingGetProxyError"
+          android:visibility="gone"
+          android:text="@string/networkingGetProxyError"
+          android:textColor="@color/colorNegative"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content" />
+
+      <Button
+          android:id="@+id/networkSetProxyUrl"
+          android:text="@string/networkingSetProxyUrl"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+
+
+      <TextView
+          style="@style/FragmentHeading"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/heading_margin_top"
+          android:layout_marginBottom="@dimen/heading_margin_bottom"
+          android:text="@string/networkingPing" />
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+        <TextView
+            android:text="@string/networkingPingUrl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/networkPingUrl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textUri"
+            android:maxLines="1"/>
+      </LinearLayout>
+
+      <Button
+          android:id="@+id/networkDoPing"
+          android:text="@string/networkingPing"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+    </LinearLayout>
+  </ScrollView>
+</LinearLayout>
