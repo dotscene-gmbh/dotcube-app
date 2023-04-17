@@ -58,7 +58,7 @@ jobs:
 
     - name: Define version code and name
       run: |
-        VERSION_CODE=$((200 + ${{ github.run_number }}))
+        VERSION_CODE=$((300 + ${{ github.run_number }}))
         echo "version_code=$VERSION_CODE"
         echo "version_code=$VERSION_CODE" >> $GITHUB_ENV
 
