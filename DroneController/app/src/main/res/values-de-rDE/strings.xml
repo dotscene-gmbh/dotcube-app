@@ -241,7 +241,8 @@
     <string name="help_menu">Hilfe</string>
 
     <string name="infoName"> Name </string>
-    <string name="infoVersion"> Version </string>
+    <string name="infoAppVersion"> App Version </string>
+    <string name="infoDotcubeOSVersion"> dotcubeOS Version </string>
     <string name="infoHardwareVersion"> Hardware Version </string>
     <string name="infoNetworkProtocolVersion"> Netzwerk Protokoll Version </string>
     <string name="infoNetworkIP"> Netzwerk IP </string>

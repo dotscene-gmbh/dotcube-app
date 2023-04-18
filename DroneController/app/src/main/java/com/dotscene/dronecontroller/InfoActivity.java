@@ -9,6 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import com.dotscene.dronecontroller.BuildConfig;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -168,7 +169,8 @@ public class InfoActivity extends AppCompatActivity {
 
     adapter.clear();
     adapter.addItem(new InfoItem(getResources().getString(R.string.infoName), info.name));
-    adapter.addItem(new InfoItem(getResources().getString(R.string.infoVersion), version));
+    adapter.addItem(new InfoItem(getResources().getString(R.string.infoAppVersion), BuildConfig.VERSION_NAME));
+    adapter.addItem(new InfoItem(getResources().getString(R.string.infoDotcubeOSVersion), version));
     adapter.addItem(new InfoItem(getResources().getString(R.string.infoHardwareVersion), info.hardwareVersion));
     adapter.addItem(new InfoItem(getResources().getString(R.string.infoNetworkProtocolVersion), "" + ServerStateModel.NETWORK_PROTOCOL_VERSION));
     adapter.addItem(new InfoItem(getResources().getString(R.string.infoNetworkIP), info.usbIpInfo));
