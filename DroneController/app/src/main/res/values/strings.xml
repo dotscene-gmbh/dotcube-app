@@ -242,7 +242,8 @@
     <string name="video_path" translatable="false">sdcard/Movies/.manual/video.mp4</string>
 
     <string name="infoName"> Name </string>
-    <string name="infoVersion"> Version </string>
+    <string name="infoAppVersion"> App Version </string>
+    <string name="infoDotcubeOSVersion"> dotcubeOS Version </string>
     <string name="infoHardwareVersion"> Hardware Version </string>
     <string name="infoNetworkProtocolVersion"> Network Protocol Version </string>
     <string name="infoNetworkIP"> Network IP </string>
