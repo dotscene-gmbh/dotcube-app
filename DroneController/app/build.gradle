@@ -83,7 +83,7 @@ dependencies {
 
 task assembleLicenseFile(type: Exec) {
     workingDir "$projectDir/"
-    commandLine "python3", "$projectDir/../../../documentation/licenses/compile-licenses.py", "-b", "$projectDir/src/main/res/raw/licenses.dat"
+    commandLine "python3", "$projectDir/../../dotcube-licenses/compile-licenses.py", "-b", "$projectDir/src/main/res/raw/licenses.dat"
 }
 
 preBuild.dependsOn assembleLicenseFile
