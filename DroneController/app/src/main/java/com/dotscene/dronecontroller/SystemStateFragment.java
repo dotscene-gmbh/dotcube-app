@@ -1,11 +1,16 @@
 package com.dotscene.dronecontroller;
 
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.ColorStateList;
+import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AlertDialog;
 import android.text.SpannableString;
@@ -29,8 +34,10 @@ import com.dotscene.dronecontroller.ServerStateModel.OnStatusLoadedListener;
 import com.dotscene.dronecontroller.ServerStateModel.OnStatusUpdateListener;
 import com.dotscene.dronecontroller.ServerStateModel.ServerStateProvider;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Calendar;
 
 /**
  * Created by Florian Kramer on 1/28/17.
@@ -51,7 +58,11 @@ public class SystemStateFragment extends Fragment implements ServerStateModel.On
     IGNORED_BITS.add(17);
     IGNORED_BITS.add(27);
   }
-
+  // For every warning there are two strings:
+  // The first is displayed if the ROS Topic Watcher detects a problem with the frequency of the
+  // messages.
+  // The second is displayed if the ROS Topic Watcher detects something in the messages that should
+  // trigger a warning.
   static final int WARNING_TEXTS[] = {
       R.string.systemStateGpsFailure,
       R.string.app_name,
@@ -130,6 +141,8 @@ public class SystemStateFragment extends Fragment implements ServerStateModel.On
       false, // fan state
       false
   };
+
+  SimpleDateFormat warning_notification_sdf;
 
   ServerStateModel serverStateModel;
 
@@ -222,6 +235,22 @@ public class SystemStateFragment extends Fragment implements ServerStateModel.On
     };
     s.setSpan(clickableSpan, 0, s.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     rosErrorText.setText(s);
+
+    // Setup warning notifications
+    warning_notification_sdf = new SimpleDateFormat("HH:mm:ss");
+    // Create the NotificationChannel, but only on API 26+ because
+    // the NotificationChannel class is new and not in the support library
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+      CharSequence name = "Warnings";
+      String description = "Warnings that pop up while using the dotcube.";
+      int importance = NotificationManager.IMPORTANCE_DEFAULT;
+      NotificationChannel channel = new NotificationChannel("", name, importance);
+      channel.setDescription(description);
+      // Register the channel with the system; you can't change the importance
+      // or other notification behaviors after this
+      NotificationManager notificationManager = getActivity().getSystemService(NotificationManager.class);
+      notificationManager.createNotificationChannel(channel);
+    }
 
     return view;
   }
@@ -329,7 +358,19 @@ public class SystemStateFragment extends Fragment implements ServerStateModel.On
               s = FlowState.GOOD;
             }
             if (textViews[i] != null) {
+              // Check that the flowstate is failed but that it only just failed
+              // otherwise the notification is triggered multiple times if multiple warnings appear.
+              if (s == FlowState.FAILED && textViews[i].getVisibility() != View.VISIBLE) {
+                NotificationCompat.Builder notification_builder = new NotificationCompat.Builder(getContext(), "")
+                        .setContentTitle(getString(R.string.warningNotificationTitle) + warning_notification_sdf.format(Calendar.getInstance().getTime()))
+                        .setSmallIcon(R.drawable.dotcontrol)
+                        .setContentText(textViews[i].getText())
+                        .setPriority(NotificationCompat.PRIORITY_MAX);
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getContext());
+                notificationManager.notify(i, notification_builder.build());
+              }
               textViews[i].setVisibility(s == FlowState.GOOD ? View.GONE : View.VISIBLE);
+
             }
             if (imageViews[i] != null) {
               imageViews[i].setVisibility(s == FlowState.GOOD ? View.GONE : View.VISIBLE);
