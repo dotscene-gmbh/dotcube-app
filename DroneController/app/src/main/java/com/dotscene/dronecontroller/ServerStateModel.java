@@ -289,6 +289,20 @@ public class ServerStateModel implements TCPListener, LocationProvider.OnLocatio
       tcpClient = new TCPClient(ipString, 25542);
       tcpClient.setTCPListener(this);
       tcpClient.connect();
+    } else {
+      onConnectionStateChangedListenerLock.lock();
+      try {
+        for (OnConnectionStateChangedListener l : onConnectionStateChangedListeners) {
+          l.onConnectionEstablished();
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      } finally {
+        onConnectionStateChangedListenerLock.unlock();
+      }
+      if (loadingStatus == 0) {
+        onStatusLoaded();
+      }
     }
   }
 
