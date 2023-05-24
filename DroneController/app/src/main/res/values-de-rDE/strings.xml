@@ -248,4 +248,5 @@
     <string name="infoNetworkIP"> Netzwerk IP </string>
     <string name="infoNetworkMAC"> Netzwerk MAC </string>
     <string name="warningNotificationTitle">"Warnung um "</string>
+    <string name="notification_settings">Benachrichtigungen konfigurieren</string>
 </resources>
