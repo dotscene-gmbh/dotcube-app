@@ -15,8 +15,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -26,23 +24,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.MenuCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
-public class CheckWifiActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
+public class CheckWifiActivity extends OptionMenuActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
 
   private static final String WIFI_NAME_PREFIX = "dotcube";
   private boolean isFABOpen = false;
@@ -89,44 +79,6 @@ public class CheckWifiActivity extends AppCompatActivity implements ActivityComp
 
     if (hasPermissions(this)) {
       setupWifiListener();
-    }
-  }
-
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.dot_menu, menu);
-    MenuCompat.setGroupDividerEnabled(menu, true);
-
-    return true;
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    switch(item.getItemId()) {
-      case R.id.menu_manual: {
-        show_long_manual(item.getActionView());
-        return true;
-      }
-      case R.id.menu_manual_scan: {
-        show_short_manual(item.getActionView());
-        return true;
-      }
-      case R.id.menu_video_manual: {
-        show_video(item.getActionView());
-        return true;
-      }
-      case R.id.menu_licenses: {
-        Intent i = new Intent(CheckWifiActivity.this, LicensesActivity.class);
-        startActivity(i);
-        return true;
-      }
-      case R.id.menu_info: {
-        Intent i = new Intent(CheckWifiActivity.this, InfoActivity.class);
-        startActivity(i);
-        return true;
-      }
-      default:
-        return false;
     }
   }
 
