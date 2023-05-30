@@ -15,6 +15,8 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AlertDialog;
+
+import android.service.notification.StatusBarNotification;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -150,6 +152,7 @@ public class SystemStateFragment extends Fragment implements ServerStateModel.On
 
   TextView textViews[] = new TextView[WARNING_TEXTS.length];
   ImageView imageViews[] = new ImageView[WARNING_TEXTS.length];
+  boolean activeNotifications[] = new boolean[WARNING_TEXTS.length];
 
   TextView textGpsLock;
   StateView stateGpsLock;
@@ -245,7 +248,7 @@ public class SystemStateFragment extends Fragment implements ServerStateModel.On
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
       CharSequence name = "Warnings";
       String description = "Warnings that pop up while using the dotcube.";
-      int importance = NotificationManager.IMPORTANCE_DEFAULT;
+      int importance = NotificationManager.IMPORTANCE_HIGH;
       NotificationChannel channel = new NotificationChannel("", name, importance);
       channel.setDescription(description);
       // Register the channel with the system; you can't change the importance
@@ -337,7 +340,14 @@ public class SystemStateFragment extends Fragment implements ServerStateModel.On
         if (getView() != null) {
           boolean isNotRecording = serverStateModel.getRecordingState() != ServerStateModel.RecordingState.RECORDING;
           ArrayList<FlowState> flowStates = serverStateModel.getFlowStates();
-
+          // Check which notifications are active right now
+          NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+          StatusBarNotification[] barNotifications = notificationManager.getActiveNotifications();
+          for (int i = 0; i < WARNING_TEXTS.length; i++) {
+            for (StatusBarNotification notification: barNotifications) {
+              activeNotifications[notification.getId()] = true;
+            }
+          }
           for (int i = 0; i < WARNING_TEXTS.length; i++) {
             if (IGNORED_BITS.contains(i)) {
               continue;
@@ -360,22 +370,26 @@ public class SystemStateFragment extends Fragment implements ServerStateModel.On
               s = FlowState.GOOD;
             }
             if (textViews[i] != null) {
-              // Check that the flowstate is failed but that it only just failed
-              // otherwise the notification is triggered multiple times if multiple warnings appear.
-              if (s == FlowState.FAILED && textViews[i].getVisibility() != View.VISIBLE) {
+              // Check that the flowstate is failed and that the notification is not shown already
+              if (s == FlowState.FAILED && !activeNotifications[i]) {
+                Intent resultIntent = new Intent(getContext(), MainActivity.class);
+                PendingIntent resultPendingIntent = PendingIntent.getActivity(getContext(), i, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 NotificationCompat.Builder notification_builder = new NotificationCompat.Builder(getContext(), "")
                         .setContentTitle(getString(R.string.warningNotificationTitle) + warning_notification_sdf.format(Calendar.getInstance().getTime()))
                         .setSmallIcon(R.drawable.dotcontrol)
                         .setContentText(textViews[i].getText())
-                        .setPriority(NotificationCompat.PRIORITY_MAX);
-                Intent resultIntent = new Intent(getContext(), MainActivity.class);
-                PendingIntent resultPendingIntent = PendingIntent.getActivity(getContext(), i, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                notification_builder.setContentIntent(resultPendingIntent);
-                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getContext());
-                notificationManager.notify(i, notification_builder.build());
+                        .setPriority(NotificationCompat.PRIORITY_MAX)
+                        .setOngoing(true)
+                        .setOnlyAlertOnce(true)
+                        .setContentIntent(resultPendingIntent);
+                NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getContext());
+                notificationManagerCompat.notify(i, notification_builder.build());
               }
               textViews[i].setVisibility(s == FlowState.GOOD ? View.GONE : View.VISIBLE);
-
+              if (activeNotifications[i] && s == FlowState.GOOD) {
+                notificationManager.cancel(i);
+                activeNotifications[i] = false;
+              }
             }
             if (imageViews[i] != null) {
               imageViews[i].setVisibility(s == FlowState.GOOD ? View.GONE : View.VISIBLE);
