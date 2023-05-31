@@ -3,6 +3,7 @@ package com.dotscene.dronecontroller;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 
@@ -664,6 +665,9 @@ public class RecordingControlFragment extends Fragment implements OnCheckedChang
       });
     }
 
+    // Start a Scan warning service
+    Intent startScanWarningService = new Intent(getContext(), ScanWarningService.class);
+    getContext().startService(startScanWarningService);
   }
 
   @Override
@@ -710,6 +714,10 @@ public class RecordingControlFragment extends Fragment implements OnCheckedChang
         currentRecordingText.setVisibility(View.GONE);
       }
     });
+
+    // Stop the Scan warning service
+    Intent startScanWarningService = new Intent(getContext(), ScanWarningService.class);
+    getContext().stopService(startScanWarningService);
   }
 
   @Override

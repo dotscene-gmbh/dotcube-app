@@ -1,22 +1,14 @@
 package com.dotscene.dronecontroller;
 
 import android.app.Activity;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AlertDialog;
 
-import android.service.notification.StatusBarNotification;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -38,10 +30,8 @@ import com.dotscene.dronecontroller.ServerStateModel.OnStatusLoadedListener;
 import com.dotscene.dronecontroller.ServerStateModel.OnStatusUpdateListener;
 import com.dotscene.dronecontroller.ServerStateModel.ServerStateProvider;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Calendar;
 
 /**
  * Created by Florian Kramer on 1/28/17.
@@ -146,13 +136,10 @@ public class SystemStateFragment extends Fragment implements ServerStateModel.On
       false
   };
 
-  SimpleDateFormat warning_notification_sdf;
-
   ServerStateModel serverStateModel;
 
   TextView textViews[] = new TextView[WARNING_TEXTS.length];
   ImageView imageViews[] = new ImageView[WARNING_TEXTS.length];
-  boolean activeNotifications[] = new boolean[WARNING_TEXTS.length];
 
   TextView textGpsLock;
   StateView stateGpsLock;
@@ -241,22 +228,6 @@ public class SystemStateFragment extends Fragment implements ServerStateModel.On
     s.setSpan(clickableSpan, 0, s.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     rosErrorText.setText(s);
 
-    // Setup warning notifications
-    warning_notification_sdf = new SimpleDateFormat("HH:mm:ss");
-    // Create the NotificationChannel, but only on API 26+ because
-    // the NotificationChannel class is new and not in the support library
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-      CharSequence name = "Warnings";
-      String description = "Warnings that pop up while using the dotcube.";
-      int importance = NotificationManager.IMPORTANCE_HIGH;
-      NotificationChannel channel = new NotificationChannel("", name, importance);
-      channel.setDescription(description);
-      // Register the channel with the system; you can't change the importance
-      // or other notification behaviors after this
-      NotificationManager notificationManager = getActivity().getSystemService(NotificationManager.class);
-      notificationManager.createNotificationChannel(channel);
-    }
-
     return view;
   }
 
@@ -340,14 +311,6 @@ public class SystemStateFragment extends Fragment implements ServerStateModel.On
         if (getView() != null) {
           boolean isNotRecording = serverStateModel.getRecordingState() != ServerStateModel.RecordingState.RECORDING;
           ArrayList<FlowState> flowStates = serverStateModel.getFlowStates();
-          // Check which notifications are active right now
-          NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
-          StatusBarNotification[] barNotifications = notificationManager.getActiveNotifications();
-          for (int i = 0; i < WARNING_TEXTS.length; i++) {
-            for (StatusBarNotification notification: barNotifications) {
-              activeNotifications[notification.getId()] = true;
-            }
-          }
           for (int i = 0; i < WARNING_TEXTS.length; i++) {
             if (IGNORED_BITS.contains(i)) {
               continue;
@@ -370,26 +333,7 @@ public class SystemStateFragment extends Fragment implements ServerStateModel.On
               s = FlowState.GOOD;
             }
             if (textViews[i] != null) {
-              // Check that the flowstate is failed and that the notification is not shown already
-              if (s == FlowState.FAILED && !activeNotifications[i]) {
-                Intent resultIntent = new Intent(getContext(), MainActivity.class);
-                PendingIntent resultPendingIntent = PendingIntent.getActivity(getContext(), i, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                NotificationCompat.Builder notification_builder = new NotificationCompat.Builder(getContext(), "")
-                        .setContentTitle(getString(R.string.warningNotificationTitle) + warning_notification_sdf.format(Calendar.getInstance().getTime()))
-                        .setSmallIcon(R.drawable.dotcontrol)
-                        .setContentText(textViews[i].getText())
-                        .setPriority(NotificationCompat.PRIORITY_MAX)
-                        .setOngoing(true)
-                        .setOnlyAlertOnce(true)
-                        .setContentIntent(resultPendingIntent);
-                NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getContext());
-                notificationManagerCompat.notify(i, notification_builder.build());
-              }
               textViews[i].setVisibility(s == FlowState.GOOD ? View.GONE : View.VISIBLE);
-              if (activeNotifications[i] && s == FlowState.GOOD) {
-                notificationManager.cancel(i);
-                activeNotifications[i] = false;
-              }
             }
             if (imageViews[i] != null) {
               imageViews[i].setVisibility(s == FlowState.GOOD ? View.GONE : View.VISIBLE);
