@@ -107,6 +107,7 @@ public class ScanWarningService extends Service {
   @Override
   public void onDestroy() {
     isRunning = false;
+    NotificationManagerCompat.from(getApplicationContext()).cancelAll();
     super.onDestroy();
   }
 }
