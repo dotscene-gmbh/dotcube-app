@@ -72,6 +72,7 @@ public class ScanWarningService extends Service {
                   s = ServerStateModel.FlowState.GOOD;
                 }
               }
+              NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
               if (flowStates.get(i) == ServerStateModel.FlowState.FAILED) {
                 Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
                 PendingIntent resultPendingIntent = PendingIntent.getActivity(getApplicationContext(), i, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -82,8 +83,9 @@ public class ScanWarningService extends Service {
                         .setPriority(NotificationCompat.PRIORITY_MAX)
                         .setOngoing(true)
                         .setContentIntent(resultPendingIntent);
-                NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
                 notificationManagerCompat.notify(i, notification_builder.build());
+              } else {
+                notificationManagerCompat.cancel(i);
               }
             }
           } catch (InterruptedException e) {
