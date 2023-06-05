@@ -20,7 +20,7 @@
         android:layout_height="16pt"
         android:paddingRight="@dimen/internal_button_group_margin"
         android:src="@drawable/ic_question_mark"
-        android:tint="@color/colorPrimary" />
+        app:tint="@color/colorPrimary" />
 
 
     <TextView
