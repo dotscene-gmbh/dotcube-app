@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -640,7 +641,9 @@ public class RecordingControlFragment extends Fragment implements OnCheckedChang
                                  final String recordingName) {
     // Start a Scan warning service
     Intent startScanWarningService = new Intent(getContext(), ScanWarningService.class);
-    getContext().startService(startScanWarningService);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+      getContext().startForegroundService(startScanWarningService);
+    }
 
     final Activity activity = getActivity();
     if (activity == null) {
