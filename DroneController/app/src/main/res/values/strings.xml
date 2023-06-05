@@ -250,4 +250,5 @@
     <string name="infoNetworkMAC"> Network MAC </string>
     <string name="warningNotificationTitle">"Warning at "</string>
     <string name="notification_settings">Notification settings</string>
+    <string name="foreground_service_title">Scanning in progress</string>
 </resources>
