@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,15 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.MenuCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
 
-public class ConnectActivity extends AppCompatActivity implements ServerResetThread.OnServerResetListener {
+public class ConnectActivity extends OptionMenuActivity implements ServerResetThread.OnServerResetListener {
 
   private AlertDialog resetInProgressDialog;
   private boolean isFABOpen = false;
@@ -122,42 +119,12 @@ public class ConnectActivity extends AppCompatActivity implements ServerResetThr
   }
 
   @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.dot_menu, menu);
-    MenuCompat.setGroupDividerEnabled(menu, true);
-
-    return true;
-  }
-
-  @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     // Handle item selection
     switch (item.getItemId()) {
       case R.id.connectMenuResetServer: {
         resetServer();
         return true;
-      }
-      case R.id.menu_manual: {
-        show_long_manual(item.getActionView());
-        return true;
-      }
-      case R.id.menu_manual_scan: {
-        show_short_manual(item.getActionView());
-        return true;
-      }
-      case R.id.menu_video_manual: {
-        show_video(item.getActionView());
-        return true;
-      }
-      case R.id.menu_licenses: {
-          Intent i = new Intent(ConnectActivity.this, LicensesActivity.class);
-          startActivity(i);
-          return true;
-      }
-      case R.id.menu_info: {
-          Intent i = new Intent(ConnectActivity.this, InfoActivity.class);
-          startActivity(i);
-          return true;
       }
       default:
         return super.onOptionsItemSelected(item);

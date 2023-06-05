@@ -9,6 +9,8 @@
             android:title="@string/manual"/>
     </group>
     <group android:id="@+id/other_group">
+        <item android:id="@+id/menu_notifications"
+            android:title="@string/notification_settings" />
         <item android:id="@+id/menu_licenses"
             android:title="@string/licenses"/>
         <item android:id="@+id/menu_info"

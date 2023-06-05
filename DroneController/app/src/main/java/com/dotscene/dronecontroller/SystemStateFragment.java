@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AlertDialog;
+
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -51,7 +52,11 @@ public class SystemStateFragment extends Fragment implements ServerStateModel.On
     IGNORED_BITS.add(17);
     IGNORED_BITS.add(27);
   }
-
+  // For every warning there are two strings:
+  // The first is displayed if the ROS Topic Watcher detects a problem with the frequency of the
+  // messages.
+  // The second is displayed if the ROS Topic Watcher detects something in the messages that should
+  // trigger a warning.
   static final int WARNING_TEXTS[] = {
       R.string.systemStateGpsFailure,
       R.string.app_name,
@@ -306,7 +311,6 @@ public class SystemStateFragment extends Fragment implements ServerStateModel.On
         if (getView() != null) {
           boolean isNotRecording = serverStateModel.getRecordingState() != ServerStateModel.RecordingState.RECORDING;
           ArrayList<FlowState> flowStates = serverStateModel.getFlowStates();
-
           for (int i = 0; i < WARNING_TEXTS.length; i++) {
             if (IGNORED_BITS.contains(i)) {
               continue;

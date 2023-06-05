@@ -3,6 +3,7 @@ package com.dotscene.dronecontroller;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 
@@ -139,9 +140,8 @@ public class RecordingControlFragment extends Fragment implements OnCheckedChang
   @Override
   public void onPause() {
     super.onPause();
-    // deregister the listener
+    // deregister the listeners that are not necessary if the app is paused
     serverStateModel.removeOnConnectionStateChangedListener(this);
-    serverStateModel.removeOnRecordingStateChangedListener(this);
     serverStateModel.removeOnStatusLoadedListener(this);
     serverStateModel.removeOnDiskInfoUpdatedListener(this);
     serverStateModel.removeOnRecordingStartExpectedDuration(this);
@@ -149,6 +149,14 @@ public class RecordingControlFragment extends Fragment implements OnCheckedChang
     if (updateRecordingTimerTask != null) {
       updateRecordingTimerTask.cancel();
     }
+  }
+
+  @Override
+  public void onDestroy() {
+    // deregister the remaining listener
+    serverStateModel.removeOnRecordingStateChangedListener(this);
+
+    super.onDestroy();
   }
 
   private void showImuTestInit() {
@@ -630,6 +638,10 @@ public class RecordingControlFragment extends Fragment implements OnCheckedChang
   @Override
   public void onRecordingStarted(final String filename,
                                  final String recordingName) {
+    // Start a Scan warning service
+    Intent startScanWarningService = new Intent(getContext(), ScanWarningService.class);
+    getContext().startService(startScanWarningService);
+
     final Activity activity = getActivity();
     if (activity == null) {
       Log.e(getClass().getSimpleName(), "Couldn't hide the wait for recording" +
@@ -663,11 +675,14 @@ public class RecordingControlFragment extends Fragment implements OnCheckedChang
         }
       });
     }
-
   }
 
   @Override
   public void onRecordingStopped() {
+    // Stop the Scan warning service
+    Intent stopScanWarningService = new Intent(getContext(), ScanWarningService.class);
+    getContext().stopService(stopScanWarningService);
+
     final Activity activity = getActivity();
     if (activity == null) {
       Log.e(getClass().getSimpleName(), "Couldn't handle the on recording " +

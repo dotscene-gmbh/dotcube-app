@@ -3,6 +3,7 @@
 
     <uses-feature android:name="android.hardware.camera" /> <!-- allows writing logs to disk -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -32,6 +33,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait"/>
+        <service android:name=".ScanWarningService" />
         <activity android:name=".BagFileDetailsActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".AboutActivity"
@@ -59,6 +61,8 @@
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="barcode" />
+        <meta-data android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/dotcontrol" />
     </application>
 
 </manifest>

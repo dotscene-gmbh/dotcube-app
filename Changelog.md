@@ -7,6 +7,9 @@ except for the additional 'Bugfix' tag.
 
 ## [Unreleased]
 
+### Added
+- App displays warnings as notifications
+
 ## [1.1.1]
 
 ### Added
