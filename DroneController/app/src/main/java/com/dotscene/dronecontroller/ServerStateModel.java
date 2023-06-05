@@ -183,7 +183,9 @@ public class ServerStateModel implements TCPListener, LocationProvider.OnLocatio
     RESET_TO_FACTORY_REQUEST,
     RESET_TO_FACTORY_RESPONSE,
     RESTART_LAST_RECORDING_REQUEST,
-    RESTART_LAST_RECORDING_RESPONSE
+    RESTART_LAST_RECORDING_RESPONSE,
+    IMU_TYPE_REQUEST,
+    IMU_TYPE_RESPONSE
   }
 
   protected MessageType[] messageTypeOrdinals;
