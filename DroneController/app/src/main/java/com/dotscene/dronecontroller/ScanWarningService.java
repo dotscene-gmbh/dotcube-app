@@ -17,9 +17,12 @@ import androidx.core.app.NotificationManagerCompat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class ScanWarningService extends Service {
   private volatile boolean isRunning;
+  private final Lock mutex = new ReentrantLock(true);
   private ServerStateModel serverStateModel;
   private ArrayList<ServerStateModel.FlowState> flowStates;
   private SimpleDateFormat warning_notification_sdf;
@@ -47,18 +50,28 @@ public class ScanWarningService extends Service {
   @Override
   public int onStartCommand(Intent intent, int flags, int startId) {
     // Only start the notification thread once
-    if (isRunning) {
-      return START_STICKY;
+    mutex.lock();
+    try {
+      if (isRunning) {
+        return START_STICKY;
+      }
+      isRunning = true;
+    } finally {
+      mutex.unlock();
     }
-    isRunning = true;
     new Thread(new Runnable() {
       @Override
       public void run() {
-        while(isRunning) {
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
+        while(true) {
           try {
             // Check every 3s if there are warnings and trigger notifications for them.
             // TODO determine a good polling frequency
             Thread.sleep(3000);
+            mutex.lock();
+            if (!isRunning) {
+              break;
+            }
             flowStates = serverStateModel.getFlowStates();
             for (int i = 0; i < flowStates.size(); i++) {
               if (IGNORED_BITS.contains(i)) {
@@ -72,7 +85,6 @@ public class ScanWarningService extends Service {
                   s = ServerStateModel.FlowState.GOOD;
                 }
               }
-              NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
               if (flowStates.get(i) == ServerStateModel.FlowState.FAILED) {
                 Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
                 PendingIntent resultPendingIntent = PendingIntent.getActivity(getApplicationContext(), i, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -90,6 +102,8 @@ public class ScanWarningService extends Service {
             }
           } catch (InterruptedException e) {
             throw new RuntimeException(e);
+          } finally {
+            mutex.unlock();
           }
         }
       }
@@ -106,8 +120,13 @@ public class ScanWarningService extends Service {
 
   @Override
   public void onDestroy() {
-    isRunning = false;
-    NotificationManagerCompat.from(getApplicationContext()).cancelAll();
+    mutex.lock();
+    try {
+      isRunning = false;
+      NotificationManagerCompat.from(getApplicationContext()).cancelAll();
+    } finally {
+      mutex.unlock();
+    }
     super.onDestroy();
   }
 }
