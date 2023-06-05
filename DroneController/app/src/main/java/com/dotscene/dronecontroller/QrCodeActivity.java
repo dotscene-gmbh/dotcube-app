@@ -122,6 +122,7 @@ public class QrCodeActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         for (int i : grantResults) {
             if (i != PackageManager.PERMISSION_GRANTED) {
                 Intent res = new Intent();

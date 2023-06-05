@@ -134,6 +134,7 @@ public class CheckWifiActivity extends OptionMenuActivity implements ActivityCom
   public void onRequestPermissionsResult(int requestCode,
                                          @NonNull String[] permissions,
                                          @NonNull int[] grantResults) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     boolean hasPermissions = true;
     for (int i : grantResults) {
       if (i != PackageManager.PERMISSION_GRANTED) {
