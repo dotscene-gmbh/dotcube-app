@@ -219,7 +219,6 @@
 
     <string name="systemStateFanWrongStatus">Fan is not working correctly, please check for blocking.</string>
 
-
     <string name="systemStateGpsLock">GPS lock:</string>
     <string name="recordingTypeIndoor">indoor</string>
     <string name="recordingTypeOutdoor">outdoor/combined</string>
