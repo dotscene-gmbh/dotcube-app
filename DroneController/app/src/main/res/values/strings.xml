@@ -196,6 +196,7 @@
     <string name="systemStateTopVelodyneInSyncFailure">Missing data from the top laser synchronization.</string>
     <string name="systemStateFrontVelodyneValidGpsFailure">Missing data from the front laser gprmc data stream.</string>
     <string name="systemStateTopVelodyneValidGpsFailure">Missing data from the top laser gprmc data stream.</string>
+    <string name="systemStateImuUncertaintyFailure">Missing data from the IMU uncertainty checker.</string>
     <string name="systemStateFanStatusFailure">Missing data from the fan status detection.</string>
     <string name="systemStateRosError">An error occurred on the sensor.</string>
 
@@ -207,6 +208,7 @@
     <string name="systemStateCpuTempWrongValue">Critical cpu temperature. Please shutdown the system immediately and wait for it to cool down.</string>
 
     <string name="systemStateImuSyncNotSynced">No time synchronization for the inertial measurement unit.</string>
+    <string name="systemStateImuUncertaintyWrongValue">IMU uncertainty too high.</string>
     <string name="systemStateFrontVelodyneCapOn">Please remove the cap from the front laser.</string>
     <string name="systemStateTopVelodyneCapOn">Please remove the cap from the top laser.</string>
 

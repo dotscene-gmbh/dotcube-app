@@ -207,6 +207,8 @@
     <string name="systemStateCpuTempWrongValue">Die CPU-Temperatur ist kritisch. Bitte schalten Sie den dotcube sofort aus und warten Sie, bis das System abgekühlt ist.</string>
 
     <string name="systemStateImuSyncNotSynced">Fehlende Daten von der Zeitsynchronisation der Inertialsensorik.</string>
+    <string name="systemStateImuUncertaintyFailure">Fehlende Daten von der Unsicherheitsschätzung der IMU.</string>
+    <string name="systemStateImuUncertaintyWrongValue">IMU Unsicherheit zu hoch.</string>
     <string name="systemStateFrontVelodyneCapOn">Bitte entfernen Sie die Abdeckung des vorderen Lasers.</string>
     <string name="systemStateTopVelodyneCapOn">Bitte entfernen Sie die Abdeckung des oberen Lasers.</string>
 

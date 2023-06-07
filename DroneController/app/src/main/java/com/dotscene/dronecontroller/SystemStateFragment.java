@@ -92,6 +92,8 @@ public class SystemStateFragment extends Fragment implements ServerStateModel.On
       R.string.systemStateCpuTempWrongValue,
       R.string.systemStateGpioPpsTimeOffsetFailure,
       R.string.app_name,
+      R.string.systemStateImuUncertaintyFailure,
+      R.string.systemStateImuUncertaintyWrongValue,
       R.string.systemStateFanStatusFailure,
       R.string.systemStateFanWrongStatus
   };
@@ -132,6 +134,8 @@ public class SystemStateFragment extends Fragment implements ServerStateModel.On
       false,
       false, // pps imu time offset
       false,
+      true,  // imu uncertainty
+      true,
       false, // fan state
       false
   };

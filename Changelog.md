@@ -9,6 +9,7 @@ except for the additional 'Bugfix' tag.
 
 ### Added
 - App displays warnings as notifications
+- New warning for IMU Uncertainty
 
 ## [1.1.1]
 
