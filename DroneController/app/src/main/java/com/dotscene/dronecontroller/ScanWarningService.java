@@ -3,6 +3,7 @@ package com.dotscene.dronecontroller;
 import static com.dotscene.dronecontroller.SystemStateFragment.IGNORED_BITS;
 import static com.dotscene.dronecontroller.SystemStateFragment.WARNING_TEXTS;
 
+import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -24,6 +25,8 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class ScanWarningService extends Service {
   private volatile boolean isRunning;
+  private volatile byte warningCounter[];
+  private final byte triggerWarningCount = 10; // Interval (s) for triggering warning notifications
   private final Lock mutex = new ReentrantLock(true);
   private ServerStateModel serverStateModel;
   private ArrayList<ServerStateModel.FlowState> flowStates;
@@ -74,6 +77,8 @@ public class ScanWarningService extends Service {
         return START_STICKY;
       }
       isRunning = true;
+      // Initialize warning counter to zeros
+      warningCounter = new byte[WARNING_TEXTS.length];
     } finally {
       mutex.unlock();
     }
@@ -83,9 +88,8 @@ public class ScanWarningService extends Service {
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
         while(true) {
           try {
-            // Check every 3s if there are warnings and trigger notifications for them.
-            // TODO determine a good polling frequency
-            Thread.sleep(3000);
+            // Poll once per second for updates
+            Thread.sleep(1000);
             mutex.lock();
             if (!isRunning) {
               break;
@@ -104,18 +108,27 @@ public class ScanWarningService extends Service {
                 }
               }
               if (flowStates.get(i) == ServerStateModel.FlowState.FAILED) {
-                // Adapt notification builder for the warning notifications
-                notification_builder
-                        .setContentTitle(getString(R.string.warningNotificationTitle) + warning_notification_sdf.format(Calendar.getInstance().getTime()))
-                        .setContentText(getString(WARNING_TEXTS[i]))
-                        .setSilent(false)
-                        .setPriority(NotificationCompat.PRIORITY_MAX);
-                if (ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                  return;
+                warningCounter[i] += 1;
+                // If the warning is new make a notification
+                if (warningCounter[i] == 1) {
+                  // Adapt notification builder for the warning notifications
+                  notification_builder
+                  .setContentTitle(getString(R.string.warningNotificationTitle) + warning_notification_sdf.format(Calendar.getInstance().getTime()))
+                  .setContentText(getString(WARNING_TEXTS[i]))
+                  .setSilent(false)
+                  .setPriority(NotificationCompat.PRIORITY_MAX);
+                  if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                  }
+                  notificationManagerCompat.notify(i, notification_builder.build());
+                } else if (warningCounter[i] == triggerWarningCount) {
+                  // Reset warning counter to trigger the Notification every triggerWarningCount seconds
+                  warningCounter[i] = 0;
                 }
-                notificationManagerCompat.notify(i, notification_builder.build());
               } else {
+                // If the FlowState is good cancel the notification if it's there and reset the counter
                 notificationManagerCompat.cancel(i);
+                warningCounter[i] = 0;
               }
             }
           } catch (InterruptedException e) {
