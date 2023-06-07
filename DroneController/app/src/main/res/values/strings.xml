@@ -196,7 +196,7 @@
     <string name="systemStateTopVelodyneInSyncFailure">Missing data from the top laser synchronization.</string>
     <string name="systemStateFrontVelodyneValidGpsFailure">Missing data from the front laser gprmc data stream.</string>
     <string name="systemStateTopVelodyneValidGpsFailure">Missing data from the top laser gprmc data stream.</string>
-    <string name="systemStateImuUncertaintyFailure">Missing data from the vectornav uncertainty checker.</string>
+    <string name="systemStateImuUncertaintyFailure">Missing data from the IMU uncertainty checker.</string>
     <string name="systemStateFanStatusFailure">Missing data from the fan status detection.</string>
     <string name="systemStateRosError">An error occurred on the sensor.</string>
 
