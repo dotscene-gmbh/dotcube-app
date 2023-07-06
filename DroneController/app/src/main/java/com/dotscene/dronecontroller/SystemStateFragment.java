@@ -51,7 +51,11 @@ public class SystemStateFragment extends Fragment implements ServerStateModel.On
     IGNORED_BITS.add(17);
     IGNORED_BITS.add(27);
   }
-
+  // For every warning there are two strings:
+  // The first is displayed if the ROS Topic Watcher detects a problem with the frequency of the
+  // messages.
+  // The second is displayed if the ROS Topic Watcher detects something in the messages that should
+  // trigger a warning.
   static final int WARNING_TEXTS[] = {
       R.string.systemStateGpsFailure,
       R.string.app_name,
@@ -210,10 +214,6 @@ public class SystemStateFragment extends Fragment implements ServerStateModel.On
     stateGpsLock.setState(StateView.State.NEGATIVE);
     stateGpsLock.setEnabled(true);
     textGpsLock = view.findViewById(R.id.textGPSLock);
-    if (BuildConfig.HAS_GPS) {
-      stateGpsLock.setVisibility(view.VISIBLE);
-      textGpsLock.setVisibility(view.VISIBLE);
-    }
 
     rosErrorText.setMovementMethod(LinkMovementMethod.getInstance());
     String rosError = c.getResources().getString(R.string.systemStateRosError);
@@ -363,6 +363,10 @@ public class SystemStateFragment extends Fragment implements ServerStateModel.On
   public void onStatusLoaded() {
     if (serverStateModel.isRecording()) {
       onRecordingStarted(serverStateModel.getRecordingFilename(), serverStateModel.getRecordingName());
+    }
+    if (serverStateModel.getHasGps()) {
+      getView().findViewById(R.id.stateGPSLock).setVisibility(View.VISIBLE);
+      getView().findViewById(R.id.textGPSLock).setVisibility(View.VISIBLE);
     }
   }
 
