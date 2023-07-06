@@ -248,4 +248,6 @@
     <string name="infoNetworkProtocolVersion"> Network Protocol Version </string>
     <string name="infoNetworkIP"> Network IP </string>
     <string name="infoNetworkMAC"> Network MAC </string>
+    <string name="systemStateImuUncertaintyFailure">Missing data from the IMU uncertainty checker.</string>
+    <string name="systemStateImuUncertaintyWrongValue">IMU uncertainty too high.</string>
 </resources>

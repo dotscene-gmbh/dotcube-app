@@ -247,4 +247,6 @@
     <string name="infoNetworkProtocolVersion"> Netzwerk Protokoll Version </string>
     <string name="infoNetworkIP"> Netzwerk IP </string>
     <string name="infoNetworkMAC"> Netzwerk MAC </string>
+    <string name="systemStateImuUncertaintyFailure">Fehlende Daten von der Unsicherheitsschätzung der IMU.</string>
+    <string name="systemStateImuUncertaintyWrongValue">IMU Unsicherheit zu hoch.</string>
 </resources>
