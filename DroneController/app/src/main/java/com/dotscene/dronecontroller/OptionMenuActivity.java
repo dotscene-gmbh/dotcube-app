@@ -45,15 +45,6 @@ public abstract class OptionMenuActivity extends AppCompatActivity {
         }
         return true;
       }
-      case R.id.menu_notifications: {
-        // Links to this app's notification settings.
-        Intent intent = new Intent();
-        intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("android.provider.extra.APP_PACKAGE", getPackageName());
-        startActivity(intent);
-        return true;
-      }
       case R.id.menu_licenses: {
         Intent i = new Intent(OptionMenuActivity.this, LicensesActivity.class);
         startActivity(i);
