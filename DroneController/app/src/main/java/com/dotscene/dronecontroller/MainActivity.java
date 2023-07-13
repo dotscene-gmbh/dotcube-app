@@ -10,7 +10,6 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
@@ -19,11 +18,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.util.Pair;
 import androidx.core.view.MenuCompat;
@@ -47,7 +44,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends OptionMenuActivity
     implements ServerStateProvider,
         ServerErrorDisplay,
         OnStatusLoadedListener,
@@ -188,45 +185,6 @@ public class MainActivity extends AppCompatActivity
         });
     return true;
   }
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    switch(item.getItemId()) {
-      case R.id.menu_manual: {
-        Intent i = new Intent(MainActivity.this, ManualActivity.class);
-        startActivity(i);
-        return true;
-      }
-      case R.id.menu_manual_scan: {
-        Intent i = new Intent(MainActivity.this, ShortManualActivity.class);
-        startActivity(i);
-        return true;
-      }
-      case R.id.menu_video_manual: {
-        File file = new File(getResources().getString(R.string.video_path));
-        if(file.exists()) {
-          Intent start_video_intent = new Intent(Intent.ACTION_VIEW);
-          start_video_intent.setDataAndType(Uri.parse(getResources().getString(R.string.video_path)), "video/*");
-          startActivity(start_video_intent);
-        }
-        else {
-          Toast.makeText(this, "The video can not be found. Please contact support.", Toast.LENGTH_SHORT).show();
-        }
-        return true;
-      }
-      case R.id.menu_licenses: {
-        Intent i = new Intent(MainActivity.this, LicensesActivity.class);
-        startActivity(i);
-        return true;
-      }
-      case R.id.menu_info: {
-        Intent i = new Intent(MainActivity.this, InfoActivity.class);
-        startActivity(i);
-        return true;
-      }
-      default:
-        return super.onOptionsItemSelected(item);
-    }  }
 
   @Override
   public ServerStateModel getServerStateModel() {

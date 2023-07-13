@@ -70,6 +70,7 @@ public class ServerStateModel implements TCPListener, LocationProvider.OnLocatio
   protected long diskCapacityMb;
   protected long diskFreeMb;
 
+  protected boolean hasGps = false;
   protected boolean gpsHasFix = false;
   protected boolean hasRosError = false;
 
@@ -183,7 +184,9 @@ public class ServerStateModel implements TCPListener, LocationProvider.OnLocatio
     RESET_TO_FACTORY_REQUEST,
     RESET_TO_FACTORY_RESPONSE,
     RESTART_LAST_RECORDING_REQUEST,
-    RESTART_LAST_RECORDING_RESPONSE
+    RESTART_LAST_RECORDING_RESPONSE,
+    IMU_TYPE_REQUEST,
+    IMU_TYPE_RESPONSE
   }
 
   protected MessageType[] messageTypeOrdinals;
@@ -558,6 +561,7 @@ public class ServerStateModel implements TCPListener, LocationProvider.OnLocatio
     tcpClient.sendMessage(MessageType.STATUS_UPDATE_REQUEST.ordinal(), null);
     tcpClient.sendMessage(MessageType.SYSTEM_INFO_REQUEST.ordinal(), null);
     tcpClient.sendMessage(MessageType.PERSISTENT_SETTINGS_REQUEST.ordinal(), null);
+    tcpClient.sendMessage(MessageType.IMU_TYPE_REQUEST.ordinal(), null);
   }
 
   public void loadRosStatus() {
@@ -1525,6 +1529,17 @@ public class ServerStateModel implements TCPListener, LocationProvider.OnLocatio
           }
         }
         break;
+      case IMU_TYPE_RESPONSE:
+        try {
+         if (decoder.getString().equals("vn_200")) {
+           hasGps = true;
+         } else {
+           hasGps = false;
+         }
+        } catch (UnsupportedEncodingException e) {
+          e.printStackTrace();
+        }
+        break;
       default:
         Log.w(
             getClass().getSimpleName(),
@@ -1746,6 +1761,8 @@ public class ServerStateModel implements TCPListener, LocationProvider.OnLocatio
   public long getDiskFreeMb() {
     return diskFreeMb;
   }
+
+  public boolean getHasGps() { return hasGps; }
 
   public boolean getGpsHasFix() {
     return gpsHasFix;

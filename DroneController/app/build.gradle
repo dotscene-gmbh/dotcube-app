@@ -46,19 +46,6 @@ android {
             signingConfig signingConfigs.release
         }
     }
-    flavorDimensions "gps"
-    productFlavors {
-        gps {
-            dimension "gps"
-            buildConfigField "boolean", "HAS_GPS", "true"
-            applicationIdSuffix ".gps"
-        }
-        no_gps {
-            dimension "gps"
-            buildConfigField "boolean", "HAS_GPS", "false"
-            applicationIdSuffix ".no_gps"
-        }
-    }
     packagingOptions {
         jniLibs {
             keepDebugSymbols += ['**/*.so']
